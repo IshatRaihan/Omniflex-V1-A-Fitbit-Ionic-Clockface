@@ -1,0 +1,28 @@
+.background {
+  viewport-fill: red;
+}
+
+#myLabel {
+  font-size: 80;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 50%+40;
+  fill: white;
+}
+
+#cal-bg{
+  opacity: .3;
+}
+
+#distance-bg{
+  opacity: .3;
+}
+
+#hours{
+  opacity: .4;
+}
+#mins{
+  opacity: .4;
+}

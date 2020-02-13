@@ -1,0 +1,95 @@
+<svg viewport-fill="#111111">
+  <image href="U1.png" />
+  <text id="U1"></text>
+  
+  <arc id="distance-bg" x="14" y="-32" width="320" height="320" fill="#00FF00"
+    arc-width="12" start-angle="243" sweep-angle="60" />
+  <arc id="distance-fg" x="14" y="-32" width="320" height="320" fill="#00FF00"
+    arc-width="12" start-angle="243"/>
+  <text id="dist" x="60" y="12%" class="large-value" font-size="16" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#008000">10.00km</text>
+  
+  
+  <text id="myClock" x="50%" y="75%+15"
+      fill="black" font-size="28" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">0:00</text>
+  
+  <text id="ampm" x="62%" y="72%+15"
+      fill="black" font-size="16" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">00</text>
+  
+  <text id="day" x="37%" y="71%+15"
+      fill="black" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">Sun</text>
+  
+  <text id="month" x="48%" y="64%+15"
+      fill="black" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">-Jan-</text>
+  
+  <text id="date" x="42%" y="64%+15"
+      fill="black" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">01</text>
+  
+  <text id="year" x="57%" y="64%+15"
+      fill="black" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" text-length="20">2020</text>
+  
+  
+  <defs>
+    <symbol id="demo">
+      <g id="demogroup">
+        <arc  x="275" y="10" width="65" height="65" fill="#c80408"
+            arc-width="4" start-angle="0" sweep-angle="360" pointer-events="visible" fill-opacity="1"/>
+        <animate attributeName="opacity" begin="enable"
+            from="1" to="0" dur="1" final="restore" />
+      </g>
+    </symbol>
+  </defs>
+  <svg width="100%" height="100%">
+    <use id="demoinstance" href="#demo" width="100%" height="100%" />
+  </svg>
+  
+  <text id="hr" x="308" y="18%" class="large-value" font-size="24" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#c80408"></text>
+  <text x="307" y="24%" font-size="16" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#c80408">BPM</text>
+  
+  
+  
+  <arc id="cal-bg" x="56" y="7" width="237" height="237" fill="#ff7300"
+    arc-width="12" start-angle="203" sweep-angle="41" />
+  <arc id="cal-fg" x="56" y="7" width="237" height="237" fill="#ff7300"
+    arc-width="12" start-angle="203" />
+  <text id="kcal" x="82" y="95%" class="large-value" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#ff7300">2000 kcal</text>
+  
+  
+  
+  <g id="hours" pointer-events="visible" transform="translate(50%,50%)">
+    <rect x="$-6" y="-75" width="10" height="75" fill="#797979" />
+    <rect x="$-8" y="-72" width="6" height="72" fill="#9d9d9d" />
+    <rect x="$-5" y="-69" width="4" height="69" fill="#e7ebee" />
+  </g>
+  <g id="mins" pointer-events="visible" transform="translate(50%,50%)">
+    <rect x="$-4" y="-110" width="8" height="110" fill="#797979" />
+    <rect x="$-6" y="-110" width="4" height="110" fill="#9d9d9d" />
+    <rect x="$-3" y="-108" width="2" height="108" fill="#e7ebee" />
+  </g>
+  <g id="secs" pointer-events="visible" transform="translate(50%,50%)">
+    <rect x="$-2" y="-120" width="4" height="120" fill="#c80408" />
+    <rect x="$-4" y="-120" width="2" height="120" fill="#9c0703" />
+  </g>
+  <circle cx="50%" cy="50%" r="10" fill="#e7ebee" />
+  
+  
+  <text id="altitude" x="307" y="89%" class="large-value" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#1E90FF">10000ft</text>
+  <text x="307" y="83%" font-size="20" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#1E90FF">ALT</text>
+  <arc  x="275" y="175" width="65" height="65" fill="#1E90FF"
+    arc-width="4" start-angle="0" sweep-angle="360" />
+    
+</svg>
+
+
+
