@@ -5,4 +5,6 @@ Omniflex is for those who want the best of both watch! Inspired by modern sporty
 This clock face is completely free!
 Please leave a high rating if you loved it and make sure to report any bug you encounter. I will try to fix it as soon as possible....
 
+Note: If you want to use pieces of these codes, make sure you give the credits to the original code!
+
 The developer: https://www.linkedin.com/in/ishat-raihan-jamil
