@@ -83,19 +83,31 @@ function updateClock() {
 clock.ontick = (evt) => {
   updateClock();
   let hours = evt.date.getHours();
-  if(preferences.clockDisplay == "12h" && hours > 12){
-    hours = hours - 12;
-    ampm.text = "PM";
+  if(preferences.clockDisplay == "24h"){
+    ampm.text = "  ";
   }
   else{
-    ampm.text = ("AM");
+    if(preferences.clockDisplay == "12h" && hours > 12){
+      hours = hours - 12;
+      ampm.text = "PM";
+    }
+    else if(preferences.clockDisplay == "12h" && hours < 12){
+      ampm.text = ("AM");
+    }
+    if(preferences.clockDisplay == "12h" && hours == 12){
+      ampm.text = "PM";
+    }
   }
-  if(hours == 12){
-    ampm.text = "PM";
-  }
-  if(hours == 0){
+  
+  if(preferences.clockDisplay == "12h" && hours == 0){
     myClock.text = ("12") + ":" +
                       ("0" + evt.date.getMinutes()).slice(-2);
+    ampm.text = ("AM");
+  }
+  else if(preferences.clockDisplay == "24h" && hours == 0){
+    myClock.text = ("00") + ":" +
+                      ("0" + evt.date.getMinutes()).slice(-2);
+    ampm.text = ("  ");
   }
   else{
     myClock.text = (hours) + ":" +
