@@ -8,6 +8,8 @@ import { Barometer } from "barometer";
 import { goals } from "user-activity";
 import { today } from "user-activity";
 import { me as appbit } from "appbit";
+import { battery } from "power";
+import { charger } from "power";
 
 let myClock = document.getElementById("myClock");
 let ampm = document.getElementById("ampm");
@@ -17,33 +19,18 @@ const body = new BodyPresenceSensor();
 let hr = document.getElementById("hr");
 
 
-let altitude = document.getElementById("altitude");
+let value = document.getElementById("value");
 let calarc = document.getElementById("cal-fg");
 let kcal = document.getElementById("kcal");
 let distarc = document.getElementById("distance-fg");
 let dist = document.getElementById("dist");
+let charge = document.getElementById("charge");
+let pow = document.getElementById("power-fg");
+let powbg = document.getElementById("power-bg");
+let txtpow = document.getElementById("txtpow");
 
-var demoinstance = document.getElementById("demoinstance");
-
-if (appbit.permissions.granted("access_activity")) {
-  kcal.text = today.adjusted.calories + " kcal";
-   let anglepercentagecal = today.adjusted.calories / goals.calories;
-   let anglecal = 41 * anglepercentagecal;
-   if(anglecal > 41){
-     anglecal = 41;
-   }
-   calarc.sweepAngle = anglecal;
-}
-
-if (appbit.permissions.granted("access_activity")) {
-  dist.text = (today.adjusted.distance/1000).toFixed(2) + "km";
-   let anglepercentagedist = today.adjusted.distance / goals.distance;
-   let angledist = 60 * anglepercentagedist;
-   if(angledist > 60){
-     angledist = 60;
-   }
-   distarc.sweepAngle = angledist;
-}
+var hbrinstance = document.getElementById("hbrinstance");
+var charinstance = document.getElementById("charinstance");
 
 clock.granularity = "seconds";
 
@@ -78,6 +65,78 @@ function updateClock() {
   minHand.groupTransform.rotate.angle = minutesToAngle(mins);
   secHand.groupTransform.rotate.angle = secondsToAngle(secs);
 }
+
+let valValue = 0;
+
+display.onchange = () => updatediaplay();
+updatediaplay();
+
+function updatediaplay(){
+  if (appbit.permissions.granted("access_activity")) {
+  kcal.text = today.adjusted.calories + " kcal";
+   let anglepercentagecal = today.adjusted.calories / goals.calories;
+   let anglecal = 41 * anglepercentagecal;
+   if(anglecal > 41){
+     anglecal = 41;
+   }
+   calarc.sweepAngle = anglecal;
+ }
+
+  if (appbit.permissions.granted("access_activity")) {
+    dist.text = (today.adjusted.distance/1000).toFixed(2) + "km";
+   let anglepercentagedist = today.adjusted.distance / goals.distance;
+   let angledist = 60 * anglepercentagedist;
+   if(angledist > 60){
+     angledist = 60;
+   }
+   distarc.sweepAngle = angledist;
+ }
+  
+  let power = Math.floor(battery.chargeLevel);
+  let anglecharge = 30 * power/100;
+  txtpow.text = power + "%";
+  pow.sweepAngle = -anglecharge;
+  if(power >= 60){
+    pow.style.fill = "#00FF00";
+    powbg.style.fill = "#00FF00";
+    txtpow.style.fill = "#00FF00";
+  }
+  else if(power >= 25 && power < 60){
+    pow.style.fill = "#ff7300";
+    powbg.style.fill = "#ff7300";
+    txtpow.style.fill = "#ff7300";
+  }
+  else{
+    pow.style.fill = "#c80408";
+    powbg.style.fill = "#c80408";
+    txtpow.style.fill = "#c80408";
+  }
+  
+  valValue = "-----";
+  if(pressTime == 0){
+    stat.text = ".ALT.";
+    value.text = "-----ft";
+  }
+  else if(pressTime == 1){
+    barometer.stop();
+    stat.text = "STEPS";
+    if (appbit.permissions.granted("access_activity")){
+      value.text = today.adjusted.steps;
+      valValue = today.adjusted.steps;
+    }
+  }
+  else if(pressTime == 2){
+    barometer.stop();
+    stat.text = "FLOOR";
+    if (appbit.permissions.granted("access_activity")){
+      value.text = today.adjusted.elevationGain;
+      valValue = today.adjusted.elevationGain;
+    }
+  }
+  value.text = valValue;
+ 
+}
+
 
 
 clock.ontick = (evt) => {
@@ -186,14 +245,34 @@ clock.ontick = (evt) => {
     month.text = "-Dec-";
     break;
   }  
+  
+  
+  if(charger.connected){
+    charinstance.animate("enable");
+  }
+  else{
+    charinstance.animate("disable");
+  }
+  if(Math.floor(battery.chargeLevel) <= 15 && display.onchange){
+    charinstance.animate("enable");
+    let power = Math.floor(battery.chargeLevel);
+    let anglecharge = 30 * power/100;
+    txtpow.text = power + "%";
+    pow.sweepAngle = -anglecharge;
+    pow.style.fill = "#c80408";
+    powbg.style.fill = "#c80408";
+    txtpow.style.fill = "#c80408";
+  }
 
 };
+
+
 
 if (BodyPresenceSensor) {
   const body = new BodyPresenceSensor();
   body.addEventListener("reading", () => {
     if (!body.present) {
-            demoinstance.animate("disable");
+            hbrinstance.animate("disable");
             hr.text = "--"; 
       hrm.stop();
     } else {
@@ -201,7 +280,7 @@ if (BodyPresenceSensor) {
       }, 1000);
       if (HeartRateSensor) {
           hrm.addEventListener("reading", () => {
-          demoinstance.animate("enable"); // Specify the name of the event to trigger
+          hbrinstance.animate("enable"); // Specify the name of the event to trigger
           hr.text = hrm.heartRate;
           });
           display.addEventListener("change", () => {
@@ -216,19 +295,60 @@ if (BodyPresenceSensor) {
 }
 
 
+let React = document.getElementById("React");
+let stat = document.getElementById("stat");
+let pressTime = 0;
+let initial = 0;
+const barometer = new Barometer({ frequency: 1 });
+
+
 
 if (Barometer) {
-  const barometer = new Barometer({ frequency: 1 });
+  
   barometer.addEventListener("reading", () => {
-    altitude.text = (altitudeFromPressure(barometer.pressure / 100).toFixed(0) + "ft");
+    value.text = (altitudeFromPressure(barometer.pressure / 100).toFixed(0) + "ft");
   });
   display.addEventListener("change", () => {
-    display.on ? barometer.start() : barometer.stop();
+    if(display.on && pressTime == 0){
+      barometer.start();
+    }
+    else if(!display.on || pressTime != 0){
+      barometer.stop();      
+    }
+    
   });
-  barometer.start();
+  
 }
 function altitudeFromPressure(pressure) {
   return (1 - (pressure/1013.25)**0.190284)*145366.45;
 }
 
 
+React.onclick = function(e) {
+  pressTime = pressTime + 1;
+  if(pressTime > 2){
+    pressTime = 0;
+  }
+  
+  if(pressTime == 0){
+    stat.text = ".ALT.";
+    value.text = "-----ft";
+    barometer.start();
+  }
+  else if(pressTime == 1){
+    barometer.stop();
+    stat.text = "STEPS";
+    if (appbit.permissions.granted("access_activity")){
+      value.text = today.adjusted.steps;
+      valValue = today.adjusted.steps;
+    }
+  }
+  else if(pressTime == 2){
+    barometer.stop();
+    stat.text = "FLOOR";
+    if (appbit.permissions.granted("access_activity")){
+      value.text = today.adjusted.elevationGain;
+      valValue = today.adjusted.elevationGain;
+    }
+  }
+}
