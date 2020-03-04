@@ -36,8 +36,8 @@
   
   
   <defs>
-    <symbol id="demo">
-      <g id="demogroup">
+    <symbol id="hbr">
+      <g id="hbrgroup">
         <arc  x="275" y="10" width="65" height="65" fill="#c80408"
             arc-width="4" start-angle="0" sweep-angle="360" pointer-events="visible" fill-opacity="1"/>
         <animate attributeName="opacity" begin="enable"
@@ -46,11 +46,11 @@
     </symbol>
   </defs>
   <svg width="100%" height="100%">
-    <use id="demoinstance" href="#demo" width="100%" height="100%" />
+    <use id="hbrinstance" href="#hbr" width="100%" height="100%" />
   </svg>
   
   <text id="hr" x="308" y="18%" class="large-value" font-size="24" font-family="Fabrikat-Bold"
-      text-anchor="middle" fill="#c80408"></text>
+      text-anchor="middle" fill="#c80408">---</text>
   <text x="307" y="24%" font-size="16" font-family="Fabrikat-Bold"
       text-anchor="middle" fill="#c80408">BPM</text>
   
@@ -82,13 +82,38 @@
   <circle cx="50%" cy="50%" r="10" fill="#e7ebee" />
   
   
-  <text id="altitude" x="307" y="89%" class="large-value" font-size="14" font-family="Fabrikat-Bold"
-      text-anchor="middle" fill="#1E90FF">10000ft</text>
-  <text x="307" y="83%" font-size="20" font-family="Fabrikat-Bold"
-      text-anchor="middle" fill="#1E90FF">ALT</text>
+  <text id="value" x="307" y="89%" class="large-value" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#1E90FF">-----ft</text>
+  <text id="stat" x="308" y="83%" font-size="15" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#1E90FF" pointer-events="visible">.ALT.</text>
   <arc  x="275" y="175" width="65" height="65" fill="#1E90FF"
     arc-width="4" start-angle="0" sweep-angle="360" />
-    
+  
+  
+  
+  <arc id="power-bg" x="40" y="-10" width="270" height="270" fill="#00FF00"
+    arc-width="12" start-angle="75" sweep-angle="30" />
+  
+  <text id="txtpow" x="328" y="52%" class="large-value" font-size="14" font-family="Fabrikat-Bold"
+      text-anchor="middle" fill="#00FF00">100%</text>
+  
+  
+  <defs>
+    <symbol id="char">
+      <g id="chargroup">
+        <arc id="power-fg" x="40" y="-10" width="270" height="270" fill="#00FF00"
+            arc-width="12" start-angle="105" pointer-events="visible" fill-opacity="1"/>
+        <animate attributeName="opacity" begin="enable"
+            from="0" to="1" dur="1" final="restore" />
+      </g>
+    </symbol>
+  </defs>
+  <svg width="100%" height="100%">
+    <use id="charinstance" href="#char" width="100%" height="100%" />
+  </svg>
+  
+  <rect id="React" width="100%" height="100%" opacity="0" pointer-events="visible" />
+
 </svg>
 
 
