@@ -10,6 +10,7 @@ import { today } from "user-activity";
 import { me as appbit } from "appbit";
 import { battery } from "power";
 import { charger } from "power";
+import { units } from "user-settings";
 
 let myClock = document.getElementById("myClock");
 let ampm = document.getElementById("ampm");
@@ -83,7 +84,12 @@ function updatediaplay(){
  }
 
   if (appbit.permissions.granted("access_activity")) {
-    dist.text = (today.adjusted.distance/1000).toFixed(2) + "km";
+    if(units.distance == "metric"){
+      dist.text = (today.adjusted.distance/1000).toFixed(2) + "km";
+    }
+    else if(units.distance == "us"){
+      dist.text = (0.621371 * today.adjusted.distance/1000).toFixed(2) + "mi";
+    }
    let anglepercentagedist = today.adjusted.distance / goals.distance;
    let angledist = 60 * anglepercentagedist;
    if(angledist > 60){
