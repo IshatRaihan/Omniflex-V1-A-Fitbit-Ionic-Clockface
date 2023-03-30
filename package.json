@@ -1,0 +1,30 @@
+{
+  "fitbit": {
+    "appUUID": "92185a64-eb1d-491d-9391-8cd6617d4d44",
+    "appType": "clockface",
+    "appDisplayName": "Omniflex V1",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "",
+    "requestedPermissions": [
+      "access_activity",
+      "access_user_profile",
+      "access_exercise",
+      "run_background",
+      "access_internet",
+      "access_location",
+      "access_heart_rate"
+    ],
+    "buildTargets": [
+      "higgs"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Omniflex V1"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~4.1.0"
+  }
+}
